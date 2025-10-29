@@ -4,7 +4,266 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carta para Zaza 💜</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --verde-musgo: #556B2F;
+      --verde-claro: #6B8E23;
+      --roxo: #8A2BE2;
+      --roxo-claro: #9370DB;
+      --bege: #F5F5DC;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--verde-musgo), var(--roxo));
+      font-family: "Poppins", sans-serif;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      width: 100%;
+    }
+    
+    .qr-section {
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      background: white;
+      margin: 0 auto;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: var(--roxo);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .qr-code:hover {
+      transform: scale(1.05);
+    }
+    
+    .card {
+      background: var(--bege);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      display: none;
+    }
+    
+    .card.active {
+      display: block;
+      animation: fadeIn 0.8s ease forwards;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    
+    h1 {
+      color: var(--roxo);
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .sticker {
+      width: 120px;
+      height: 120px;
+      background: var(--roxo-claro);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    .sticker.active {
+      display: flex;
+    }
+    
+    .sticker:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .letter {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 1.5s ease, opacity 1.5s ease;
+      text-align: justify;
+      line-height: 1.6;
+      padding: 0 10px;
+    }
+    
+    .card.open .letter {
+      max-height: 5000px;
+      opacity: 1;
+    }
+    
+    .letter p {
+      margin-bottom: 15px;
+      text-indent: 20px;
+    }
+    
+    button {
+      margin-top: 1rem;
+      background: linear-gradient(to right, var(--verde-claro), var(--roxo-claro));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-weight: 600;
+      display: none;
+    }
+    
+    button.active {
+      display: block;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: var(--roxo-claro);
+      border-radius: 10px;
+      margin: 0 auto 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+    
+    .envelope:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 48%, var(--roxo) 49%, var(--roxo) 51%, transparent 52%),
+                  linear-gradient(-45deg, transparent 48%, var(--roxo) 49%, var(--roxo) 51%, transparent 52%);
+      background-size: 30px 30px;
+      border-radius: 10px;
+    }
+    
+    .envelope:after {
+      content: '💜';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--roxo);
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+    
+    .heart:before, .heart:after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--roxo);
+      border-radius: 50%;
+    }
+    
+    .heart:before {
+      top: -10px;
+      left: 0;
+    }
+    
+    .heart:after {
+      top: 0;
+      left: -10px;
+    }
+    
+    @media (max-width: 768px) {
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .qr-code {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .sticker {
+        width: 100px;
+        height: 100px;
+        font-size: 30px;
+      }
+      
+      .envelope {
+        width: 250px;
+        height: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -43,6 +302,86 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const qrCode = document.getElementById("qrCode");
+      const card = document.getElementById("card");
+      const sticker = document.getElementById("sticker");
+      const letter = document.getElementById("letter");
+      const openBtn = document.getElementById("openBtn");
+      const envelope = document.getElementById("envelope");
+      
+      // QR Code para revelar o cartão
+      qrCode.addEventListener("click", () => {
+        card.classList.add("active");
+        qrCode.style.display = "none";
+        document.querySelector(".qr-section h2").style.display = "none";
+        document.querySelector(".qr-section p").style.display = "none";
+        
+        // Criar efeito de corações
+        createHearts();
+      });
+      
+      // Envelope para revelar o adesivo
+      envelope.addEventListener("click", () => {
+        envelope.style.display = "none";
+        sticker.classList.add("active");
+      });
+      
+      // Adesivo para revelar a carta
+      sticker.addEventListener("click", () => {
+        card.classList.add("open");
+        sticker.classList.remove("active");
+        openBtn.classList.add("active");
+      });
+      
+      // Botão para abrir a carta
+      openBtn.addEventListener("click", () => {
+        card.classList.add("open");
+        openBtn.classList.remove("active");
+      });
+      
+      // Função para criar efeito de corações
+      function createHearts() {
+        for (let i = 0; i < 15; i++) {
+          setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            document.body.appendChild(heart);
+            
+            // Posição aleatória
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight + 20;
+            
+            // Configuração inicial
+            heart.style.left = `${startX}px`;
+            heart.style.top = `${startY}px`;
+            heart.style.opacity = '1';
+            heart.style.transform = `rotate(45deg) scale(${Math.random() * 0.5 + 0.5})`;
+            
+            // Animação
+            const animation = heart.animate([
+              { 
+                transform: `rotate(45deg) translate(0, 0) scale(${Math.random() * 0.5 + 0.5})`,
+                opacity: 1
+              },
+              { 
+                transform: `rotate(45deg) translate(${Math.random() * 100 - 50}px, -${window.innerHeight + 100}px) scale(0)`,
+                opacity: 0
+              }
+            ], {
+              duration: Math.random() * 3000 + 2000,
+              easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+            });
+            
+            // Remover após animação
+            animation.onfinish = () => {
+              heart.remove();
+            };
+          }, i * 200);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
