@@ -6,9 +6,11 @@
   <title>Carta para Zaza</title>
   <style>
     :root {
-      --verde-claro: #8FBC8F; /* Cor da imagem - verde mais suave */
-      --verde-medio: #6B8E23;
+      --verde-fundo: #8FBC8F; /* Cor da imagem */
+      --verde-claro: #98FB98;
       --verde-escuro: #556B2F;
+      --roxo-claro: #9370DB;
+      --roxo-escuro: #8A2BE2;
       --bege: #F5F5DC;
     }
     
@@ -19,7 +21,7 @@
     }
     
     body {
-      background: var(--verde-claro); /* Cor exata da imagem */
+      background: var(--verde-fundo);
       font-family: "Georgia", serif;
       color: #333;
       display: flex;
@@ -28,6 +30,26 @@
       min-height: 100vh;
       margin: 0;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Elementos decorativos flutuantes */
+    .decoracao {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      animation: flutuar 6s infinite ease-in-out;
+    }
+    
+    .decoracao.verde {
+      color: var(--verde-claro);
+      font-size: 30px;
+    }
+    
+    .decoracao.roxo {
+      color: var(--roxo-claro);
+      font-size: 25px;
     }
     
     .container {
@@ -35,6 +57,8 @@
       justify-content: center;
       align-items: center;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
     
     .carta-fechada {
@@ -43,10 +67,13 @@
       transition: transform 0.3s ease;
       animation: pulsar 2s infinite;
       text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
     }
     
     .carta-fechada:hover {
       transform: scale(1.3);
+      filter: drop-shadow(0 0 10px var(--roxo-claro));
     }
     
     .carta-aberta {
@@ -54,13 +81,31 @@
       max-width: 900px;
       background: var(--bege);
       border-radius: 20px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.4),
+        0 0 30px var(--roxo-claro);
       padding: 50px;
       display: none;
       animation: abrirCarta 1s ease-out;
       line-height: 1.7;
       max-height: 85vh;
       overflow-y: auto;
+      position: relative;
+      z-index: 2;
+      border: 3px solid var(--verde-escuro);
+    }
+    
+    .carta-aberta::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 2px solid var(--roxo-claro);
+      border-radius: 15px;
+      pointer-events: none;
+      opacity: 0.3;
     }
     
     .carta-aberta.mostrar {
@@ -78,24 +123,60 @@
       text-align: justify;
     }
     
+    .conteudo-carta p:nth-child(even) {
+      border-left: 3px solid var(--roxo-claro);
+      padding-left: 15px;
+    }
+    
+    .conteudo-carta p:nth-child(odd) {
+      border-right: 3px solid var(--verde-escuro);
+      padding-right: 15px;
+    }
+    
     .assinatura {
       text-align: right;
       margin-top: 50px;
       font-style: italic;
-      color: var(--verde-escuro);
+      color: var(--roxo-escuro);
       font-size: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--verde-claro), var(--roxo-claro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     .flores {
       text-align: center;
       margin-bottom: 30px;
       font-size: 28px;
-      opacity: 0.7;
+      background: linear-gradient(135deg, var(--verde-escuro), var(--roxo-escuro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      padding: 10px;
+    }
+    
+    .cabecalho-carta {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid;
+      border-image: linear-gradient(90deg, var(--verde-escuro), var(--roxo-escuro)) 1;
+    }
+    
+    .cabecalho-carta h1 {
+      font-size: 32px;
+      background: linear-gradient(135deg, var(--verde-escuro), var(--roxo-escuro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
     }
     
     @keyframes pulsar {
       0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+      50% { transform: scale(1.2); filter: drop-shadow(0 0 15px var(--roxo-claro)); }
       100% { transform: scale(1); }
     }
     
@@ -110,19 +191,31 @@
       }
     }
     
-    /* Scroll personalizado */
+    @keyframes flutuar {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.7;
+      }
+      50% { 
+        transform: translateY(-20px) rotate(180deg); 
+        opacity: 1;
+      }
+    }
+    
+    /* Scroll personalizado com cores roxo/verde */
     .carta-aberta::-webkit-scrollbar {
-      width: 10px;
+      width: 12px;
     }
     
     .carta-aberta::-webkit-scrollbar-track {
-      background: var(--bege);
+      background: linear-gradient(var(--verde-claro), var(--roxo-claro));
       border-radius: 10px;
     }
     
     .carta-aberta::-webkit-scrollbar-thumb {
-      background: var(--verde-medio);
+      background: linear-gradient(135deg, var(--roxo-escuro), var(--verde-escuro));
       border-radius: 10px;
+      border: 2px solid var(--bege);
     }
     
     @media (max-width: 768px) {
@@ -141,10 +234,23 @@
       .flores {
         font-size: 24px;
       }
+      
+      .decoracao.verde,
+      .decoracao.roxo {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Elementos decorativos flutuantes -->
+  <div class="decoracao verde" style="top: 10%; left: 5%;">🌿</div>
+  <div class="decoracao roxo" style="top: 15%; right: 8%;">💜</div>
+  <div class="decoracao verde" style="bottom: 20%; left: 8%;">✨</div>
+  <div class="decoracao roxo" style="bottom: 15%; right: 5%;">🌸</div>
+  <div class="decoracao verde" style="top: 50%; left: 3%;">🌱</div>
+  <div class="decoracao roxo" style="top: 45%; right: 3%;">💫</div>
+  
   <div class="container">
     <!-- Carta Fechada - Só o emoji grande -->
     <div class="carta-fechada" id="cartaFechada">
@@ -153,7 +259,11 @@
     
     <!-- Carta Aberta -->
     <div class="carta-aberta" id="cartaAberta">
-      <div class="flores">🌿 ✨ 💚 ✨ 🌿</div>
+      <div class="cabecalho-carta">
+        <h1>💌 Carta para Zaza 💜</h1>
+      </div>
+      
+      <div class="flores">🌿 ✨ 💚 💜 ✨ 🌿</div>
       
       <div class="conteudo-carta">
         <p>Isabelle, nada mais nada menos que a primeira publicação desse perfil, assim como o outro ter parte tua nisso... estou aqui hoje para agradecer a pessoa que és, a amiga e companheira que se mostrou ser nesses últimos meses... Em pensar que esses foram os melhores meses de toda minha vida, nunca me senti tão amada e cuidada como me sinto por ti, nunca quis tanto devolver a alguém a imensidão que ela entrega. Tu é mais que especial, quem te conhece sabe a luz que tu transmite, não consigo imaginar um mundo onde alguém não goste de ti, tu exala simpatia, risadas, maresia, alegria e no geral entrega tudo que exalas. Tu se tornou não apenas uma amiga, mas se tornou uma das pessoas mais importantes da minha vida, se tornou meu lar, meu aconchego, meu lugar seguro.</p>
@@ -174,7 +284,7 @@
         
         <div class="assinatura">
           <p>Com todo meu amor,<br>
-          <strong>💚</strong></p>
+          <strong>💚💜</strong></p>
         </div>
       </div>
     </div>
@@ -184,6 +294,22 @@
     document.addEventListener("DOMContentLoaded", () => {
       const cartaFechada = document.getElementById("cartaFechada");
       const cartaAberta = document.getElementById("cartaAberta");
+      
+      // Criar mais elementos decorativos
+      function criarDecoracao() {
+        const emojis = ['🌿', '💜', '✨', '🌸', '🌱', '💫', '🦋', '🌼'];
+        for (let i = 0; i < 8; i++) {
+          const decor = document.createElement('div');
+          decor.className = `decoracao ${i % 2 === 0 ? 'verde' : 'roxo'}`;
+          decor.textContent = emojis[i];
+          decor.style.left = Math.random() * 90 + 5 + '%';
+          decor.style.top = Math.random() * 90 + 5 + '%';
+          decor.style.animationDelay = Math.random() * 5 + 's';
+          document.body.appendChild(decor);
+        }
+      }
+      
+      criarDecoracao();
       
       cartaFechada.addEventListener("click", () => {
         // Esconde a carta fechada
