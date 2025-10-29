@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carta para Zaza 💜</title>
+  <title>Carta para Zaza 💚</title>
   <style>
     :root {
       --verde-musgo: #556B2F;
       --verde-claro: #6B8E23;
-      --roxo: #8A2BE2;
-      --roxo-claro: #9370DB;
+      --verde-escuro: #2F4F2F;
+      --verde-brilhante: #32CD32;
       --bege: #F5F5DC;
     }
     
@@ -20,8 +20,8 @@
     }
     
     body {
-      background: linear-gradient(135deg, var(--verde-musgo), var(--roxo));
-      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--verde-musgo), var(--verde-escuro));
+      font-family: "Arial", sans-serif;
       color: #333;
       display: flex;
       justify-content: center;
@@ -55,11 +55,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 24px;
-      color: var(--roxo);
+      font-size: 20px;
+      color: var(--verde-escuro);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.3s ease;
+      text-align: center;
+      padding: 10px;
     }
     
     .qr-code:hover {
@@ -69,11 +71,11 @@
     .card {
       background: var(--bege);
       padding: 2rem;
-      border-radius: 20px;
+      border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       text-align: center;
-      max-width: 700px;
-      width: 100%;
+      max-width: 400px;
+      width: 90%;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
@@ -85,24 +87,19 @@
       animation: fadeIn 0.8s ease forwards;
     }
     
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    }
-    
     h1 {
-      color: var(--roxo);
+      color: var(--verde-escuro);
       font-weight: 600;
       margin-bottom: 20px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
     
     .sticker {
-      width: 120px;
-      height: 120px;
-      background: var(--roxo-claro);
+      width: 100px;
+      height: 100px;
+      background: var(--verde-brilhante);
       border-radius: 50%;
-      margin: 0 auto 20px;
+      margin: 20px auto;
       display: none;
       justify-content: center;
       align-items: center;
@@ -130,11 +127,16 @@
       text-align: justify;
       line-height: 1.6;
       padding: 0 10px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
     }
     
     .card.open .letter {
       max-height: 5000px;
       opacity: 1;
+      padding: 20px 15px;
     }
     
     .letter p {
@@ -142,65 +144,47 @@
       text-indent: 20px;
     }
     
-    button {
-      margin-top: 1rem;
-      background: linear-gradient(to right, var(--verde-claro), var(--roxo-claro));
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-weight: 600;
-      display: none;
-    }
-    
-    button.active {
-      display: block;
-    }
-    
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    
     .envelope {
       position: relative;
-      width: 300px;
-      height: 200px;
-      background: var(--roxo-claro);
-      border-radius: 10px;
-      margin: 0 auto 30px;
+      width: 250px;
+      height: 250px;
+      background: var(--verde-claro);
+      border-radius: 15px;
+      margin: 0 auto 20px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       cursor: pointer;
       transition: transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      padding: 20px;
     }
     
     .envelope:hover {
       transform: scale(1.05);
     }
     
-    .envelope:before {
-      content: '';
-      position: absolute;
+    .green-dots {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, transparent 48%, var(--roxo) 49%, var(--roxo) 51%, transparent 52%),
-                  linear-gradient(-45deg, transparent 48%, var(--roxo) 49%, var(--roxo) 51%, transparent 52%);
-      background-size: 30px 30px;
-      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
     }
     
-    .envelope:after {
-      content: '💜';
+    .dot {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 50px;
+      width: 20px;
+      height: 20px;
+      background: var(--verde-brilhante);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 6s infinite ease-in-out;
     }
     
     @keyframes fadeIn {
@@ -214,11 +198,16 @@
       100% { transform: scale(1); }
     }
     
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+    
     .heart {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--roxo);
+      width: 15px;
+      height: 15px;
+      background: var(--verde-brilhante);
       transform: rotate(45deg);
       opacity: 0;
     }
@@ -226,79 +215,86 @@
     .heart:before, .heart:after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--roxo);
+      width: 15px;
+      height: 15px;
+      background: var(--verde-brilhante);
       border-radius: 50%;
     }
     
     .heart:before {
-      top: -10px;
+      top: -7px;
       left: 0;
     }
     
     .heart:after {
       top: 0;
-      left: -10px;
+      left: -7px;
     }
-    
+
     @media (max-width: 768px) {
       .card {
         padding: 1.5rem;
+        max-width: 350px;
       }
       
       .qr-code {
         width: 150px;
         height: 150px;
+        font-size: 16px;
       }
       
       .sticker {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         font-size: 30px;
       }
       
       .envelope {
-        width: 250px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
+        font-size: 20px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Bolinhas verdes flutuantes -->
+  <div class="green-dots" id="greenDots"></div>
+  
   <div class="container">
     <div class="qr-section">
-      <h2>Escaneie o QR Code</h2>
+      <h2>📱 Escaneie o QR Code</h2>
       <div class="qr-code" id="qrCode">
-        💜 Zaza 💜
+        Toque aqui para revelar a carta secreta 💚
       </div>
-      <p>Toque no QR Code para revelar o cartão</p>
+      <p style="margin-top: 10px;">Ou acesse pelo link</p>
     </div>
     
     <div class="card" id="card">
-      <div class="envelope" id="envelope"></div>
-      <h1>💌 Carta para Zaza</h1>
+      <div class="envelope" id="envelope">
+        💌 Toque para revelar o segredo...
+      </div>
+      <h1>Para Zaza 💚</h1>
       <div class="sticker" id="sticker">
-        💜
+        💚
       </div>
       <div class="letter" id="letter">
-        <p>Isabelle, nada mais nada menos que a primeira publicação desse perfil, assim como o outro ter parte tua nisso... estou aqui hoje para agradecer a pessoa que és, a amiga e companheira que se mostrou ser nesses últimos meses... Em pensar que esses foram os melhores meses de toda minha vida, nunca me senti tão amada e cuidada como me sinto por ti, nunca quis tanto devolver a alguém a imensidão que ela entrega. Tu é mais que especial, quem te conhece sabe a luz que tu transmite, não consigo imaginar um mundo onde alguém não goste de ti, tu exala simpatia, risadas, maresia, alegria e no geral entrega tudo que exalas. Tu se tornou não apenas uma amiga, mas se tornou uma das pessoas mais importantes da minha vida, se tornou meu lar, meu aconchego, meu lugar seguro.</p>
+        <p>Isabelle, nada mais nada menos que a primeira publicação desse perfil, assim como o outro ter parte tua nisso... estou aqui hoje para agradecer a pessoa que és, a amiga e companheira que se mostrou ser nesses últimos meses... Em pensar que esses foram os melhores meses de toda minha vida, nunca me senti tão amada e cuidada como me sinto por ti, nunca quis tanto devolver a alguém a imensidão que ela entrega.</p>
 
-        <p>Zaza, não sei o porquê nossos mundos se cruzaram, não sei se por coincidência ou por destino, mas creio eu que te conheço de outras vidas, se é que isso realmente existe. Nossa conexão não foi imediata, mas foi concreta, teve esforço de ambos os lados, teve e tem muito cuidado. Eu tento o tempo todo te mostrar o quanto quem te tem ao lado tem sorte, a sorte de ouvir tuas piadas, te ouvir cantarolando, te ver quietinha, te ver sendo mãe/filha/neta/irmã/tia/dinda, tudo de mais belo. E acima de tudo, eu desejo que o teu futuro seja enorme, gigante — que tudo o que há de mais lindo no universo eu desejo pra ti, porque tu merece o mundo inteiro e tudo de bom que existe nele. Até mesmo nos dias que tu acorda mal-humorada tu ainda fala comigo com um sorrisinho falso no rosto, e eu olho e sei que tu tá fazendo esforço pra não brigar comigo porque te acordei, ou nos dias que não calo a boca e tu está com dor de cabeça ou quer ficar quieta e acha que é cruel comigo, mas nem assim tu consegue fazer com que eu sinta alguma grosseria ou crueldade vindo de ti.</p>
+        <p>Zaza, não sei o porquê nossos mundos se cruzaram, não sei se por coincidência ou por destino, mas creio eu que te conheço de outras vidas, se é que isso realmente existe. Nossa conexão não foi imediata, mas foi concreta, teve esforço de ambos os lados, teve e tem muito cuidado.</p>
 
-        <p>Amo cada tempo nosso, amo ir contigo para os lugares — praia, centro, shopping, ficar em casa, festas — amo tua companhia. Logo eu, que sempre amei meu tempo só, hoje esqueço o que é isso, pois estou do lado da melhor pessoa que eu poderia estar, a pessoa que não faz eu sentir nem por um segundo sequer alguma coisa que não seja amor e felicidade no meu peito. Amo passar as tardes deitada eu, você e o Tigrão, cozinhar contigo, amo ser tua amiga, amo que você se tornou parte de mim, o filho virou meu enteado e juntamente com minhas loucas meu tigre favorito do universo. Amo mimar vocês.</p>
+        <p>Amo cada tempo nosso, amo ir contigo para os lugares — praia, centro, shopping, ficar em casa, festas — amo tua companhia. Logo eu, que sempre amei meu tempo só, hoje esqueço o que é isso, pois estou do lado da melhor pessoa que eu poderia estar.</p>
 
-        <p>Isabelle, espero que esse textinho mostre que eu não consigo ver nada de ruim nesses meses que tua amizade entrou na minha vida, nesses meses que eu me entreguei à tua pessoa. Espero que tu veja que tu nunca fez eu me sentir menos do que amada em voz alta e a pessoa mais feliz do universo. Obrigada por ter me apresentado a Coli, por me aproximar do Jean, por me apresentar o pessoal da faculdade, por me colocar no teu mundo mesmo que às vezes à distância. Obrigada por me acolher e me dar a chance de marcar tua história como tu está marcada na minha, da forma mais linda que eu já vi, toda enfeitada de formas que eu nem sei mostrar de tantos detalhes que são sobre você.</p>
+        <p>Isabelle, espero que esse textinho mostre que eu não consigo ver nada de ruim nesses meses que tua amizade entrou na minha vida. Espero que tu veja que tu nunca fez eu me sentir menos do que amada em voz alta e a pessoa mais feliz do universo.</p>
 
-        <p>Obrigada por ser você, essa pessoa que, das seis da manhã de um dia até as seis da manhã do outro, faz cada segundo ser incrível, onde cada dia contigo é diferente, onde não tem como odiar, cansar ou ficar triste perto. Contigo só existem as melhores coisas do universo, porque tu é isso: tu é incomparável. Não tem palavras no mundo pra te elogiar, pra falar de ti — não existem. É só sentir o que tu entrega, o que tu agrega. Tu muda e mudou tudo. Tu me salvou mesmo sem saber que eu precisava ser salva.</p>
+        <p>Obrigada por ser você, essa pessoa que faz cada segundo ser incrível, onde cada dia contigo é diferente. Contigo só existem as melhores coisas do universo, porque tu é isso: tu é incomparável.</p>
 
-        <p>Eu te amo com a minha alma, eu te amo por completo e te amarei eternamente. O que tenho contigo nunca senti com ninguém: a confiança, a segurança... tudo isso é algo que nunca me aconteceu. Eu abri as portas da minha vida e do meu coração, e tu cuidou e tu cuida. Esse textinho e essas fotos hoje não são nada além de 1% do que te digo e tento mostrar diariamente. É uma coisa bobinha até, pra mostrar que tu fez de 2025 um dos anos mais felizes da minha vida — meus melhores meses, minhas risadas e até meus choros, tu estava lá.</p>
+        <p>Eu te amo com a minha alma, eu te amo por completo e te amarei eternamente. O que tenho contigo nunca senti com ninguém: a confiança, a segurança... tudo isso é algo que nunca me aconteceu.</p>
 
-        <p>Tu me agarrou e me cuidou quando tudo desabou. Sempre que for preciso pro teu bem-estar e eu puder ajudar, eu irei. Jamais irei te abandonar, independente do que o futuro nos prepare. Sempre que precisar tu saberá onde me encontrar, e se algo mudar, tu será a primeira que eu avisarei.</p>
+        <p>Tu me agarrou e me cuidou quando tudo desabou. Sempre que for preciso pro teu bem-estar e eu puder ajudar, eu irei. Jamais irei te abandonar.</p>
 
-        <p>Eu te amo em todos os multiversos, eu te amo com cada parte do meu ser, eu te amo mais que pudim, mais que todas as ametistas do planeta, mais do que eu amo qualquer coisa que venha na tua cabeça sobre mim. Eu te amo com cada molécula de água no meu corpo — ou seja, eu te amo com todo o meu ser. 💜</p>
+        <p>Eu te amo em todos os multiversos, eu te amo com cada parte do meu ser, eu te amo mais que pudim, mais que todas as coisas verdes da natureza. Eu te amo com todo o meu ser. 💚</p>
       </div>
-      <button id="openBtn">Abrir Carta 💌</button>
     </div>
   </div>
 
@@ -308,8 +304,28 @@
       const card = document.getElementById("card");
       const sticker = document.getElementById("sticker");
       const letter = document.getElementById("letter");
-      const openBtn = document.getElementById("openBtn");
       const envelope = document.getElementById("envelope");
+      const greenDots = document.getElementById("greenDots");
+      
+      // Criar bolinhas verdes
+      function createGreenDots() {
+        for (let i = 0; i < 25; i++) {
+          const dot = document.createElement('div');
+          dot.classList.add('dot');
+          
+          // Posição aleatória
+          dot.style.left = Math.random() * 100 + 'vw';
+          dot.style.top = Math.random() * 100 + 'vh';
+          dot.style.width = (Math.random() * 30 + 10) + 'px';
+          dot.style.height = dot.style.width;
+          dot.style.animationDelay = Math.random() * 5 + 's';
+          dot.style.animationDuration = (Math.random() * 10 + 10) + 's';
+          
+          greenDots.appendChild(dot);
+        }
+      }
+      
+      createGreenDots();
       
       // QR Code para revelar o cartão
       qrCode.addEventListener("click", () => {
@@ -318,7 +334,7 @@
         document.querySelector(".qr-section h2").style.display = "none";
         document.querySelector(".qr-section p").style.display = "none";
         
-        // Criar efeito de corações
+        // Criar efeito de corações verdes
         createHearts();
       });
       
@@ -332,18 +348,11 @@
       sticker.addEventListener("click", () => {
         card.classList.add("open");
         sticker.classList.remove("active");
-        openBtn.classList.add("active");
       });
       
-      // Botão para abrir a carta
-      openBtn.addEventListener("click", () => {
-        card.classList.add("open");
-        openBtn.classList.remove("active");
-      });
-      
-      // Função para criar efeito de corações
+      // Função para criar efeito de corações verdes
       function createHearts() {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 12; i++) {
           setTimeout(() => {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -384,4 +393,4 @@
     });
   </script>
 </body>
-</html> 
+</html>
