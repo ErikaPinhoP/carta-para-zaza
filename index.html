@@ -10,6 +10,7 @@
       --verde-musgo: #556B2F;
       --verde-claro: #6B8E23;
       --bege: #F5F5DC;
+      --bege-claro: #FEFAE0;
       --dourado: #D4AF37;
     }
     
@@ -93,16 +94,16 @@
     }
     
     .carta-aberta {
-      width: 90%;
-      max-width: 600px;
-      background: var(--bege);
-      border-radius: 15px;
+      width: 210mm; /* Largura A4 */
+      min-height: 297mm; /* Altura A4 */
+      background: var(--bege-claro);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      padding: 40px;
+      padding: 40mm 30mm; /* Margens de página */
       display: none;
       position: relative;
       animation: abrirCarta 1s ease-out;
-      border: 2px solid var(--verde-claro);
+      border: 1px solid #ccc;
+      line-height: 1.6;
     }
     
     .carta-aberta.mostrar {
@@ -113,43 +114,78 @@
       display: none;
     }
     
-    .cabecalho-carta {
-      text-align: center;
-      margin-bottom: 30px;
-      border-bottom: 2px solid var(--verde-claro);
-      padding-bottom: 15px;
+    /* Estilo de papel A4 com linhas */
+    .papel-a4 {
+      position: relative;
+      min-height: 100%;
     }
     
-    .cabecalho-carta h1 {
-      color: var(--verde-escuro);
-      font-size: 28px;
-      margin-bottom: 10px;
+    .linhas-papel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, 
+        transparent 0%, 
+        transparent 39px, 
+        rgba(0,0,0,0.1) 39px, 
+        rgba(0,0,0,0.1) 40px
+      );
+      background-size: 100% 40px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.3;
     }
     
     .conteudo-carta {
-      line-height: 1.8;
+      position: relative;
+      z-index: 2;
       text-align: justify;
     }
     
     .conteudo-carta p {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-indent: 30px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    
+    .data {
+      text-align: right;
+      margin-bottom: 30px;
+      font-style: italic;
+      color: var(--verde-musgo);
     }
     
     .assinatura {
       text-align: right;
-      margin-top: 30px;
+      margin-top: 50px;
       font-style: italic;
       color: var(--verde-musgo);
-      font-size: 18px;
+      font-size: 16px;
     }
     
-    .flores {
+    .flores-topo {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      opacity: 0.7;
+      top: 20px;
+      right: 30px;
+      font-size: 18px;
+      opacity: 0.6;
+    }
+    
+    .flores-rodape {
+      position: absolute;
+      bottom: 20px;
+      left: 30px;
+      font-size: 18px;
+      opacity: 0.6;
+    }
+    
+    .margem-esquerda {
+      border-left: 2px solid var(--verde-claro);
+      padding-left: 15px;
+      margin-left: -15px;
     }
     
     @keyframes pulsar {
@@ -177,6 +213,26 @@
       opacity: 0.6;
     }
     
+    /* Scroll personalizado para a carta */
+    .conteudo-carta {
+      max-height: 220mm;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    .conteudo-carta::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .conteudo-carta::-webkit-scrollbar-track {
+      background: var(--bege);
+    }
+    
+    .conteudo-carta::-webkit-scrollbar-thumb {
+      background: var(--verde-claro);
+      border-radius: 4px;
+    }
+    
     @media (max-width: 768px) {
       .carta-fechada {
         width: 280px;
@@ -190,7 +246,19 @@
       }
       
       .carta-aberta {
+        width: 95%;
+        min-height: auto;
         padding: 30px 20px;
+      }
+    }
+    
+    @media print {
+      body {
+        background: white;
+      }
+      .carta-aberta {
+        box-shadow: none;
+        border: none;
       }
     }
   </style>
@@ -207,55 +275,24 @@
       <div class="decoracao">🌸🌿💫</div>
     </div>
     
-    <!-- Carta Aberta -->
+    <!-- Carta Aberta em formato A4 -->
     <div class="carta-aberta" id="cartaAberta">
-      <div class="flores">🌿✨</div>
-      <div class="cabecalho-carta">
-        <h1>💌 Carta para Zaza</h1>
-        <p><em>"Algumas conexões são feitas para durar"</em></p>
-      </div>
+      <div class="flores-topo">🌿✨🌼</div>
+      <div class="flores-rodape">🌸💫🌿</div>
       
-      <div class="conteudo-carta">
-        <p>Isabelle, nada mais nada menos que a primeira publicação desse perfil, assim como o outro ter parte tua nisso... estou aqui hoje para agradecer a pessoa que és, a amiga e companheira que se mostrou ser nesses últimos meses... Em pensar que esses foram os melhores meses de toda minha vida, nunca me senti tão amada e cuidada como me sinto por ti, nunca quis tanto devolver a alguém a imensidão que ela entrega.</p>
+      <div class="papel-a4">
+        <div class="linhas-papel"></div>
+        <div class="conteudo-carta">
+          <div class="data">2025</div>
+          
+          <p>Isabelle, nada mais nada menos que a primeira publicação desse perfil, assim como o outro ter parte tua nisso... estou aqui hoje para agradecer a pessoa que és, a amiga e companheira que se mostrou ser nesses últimos meses... Em pensar que esses foram os melhores meses de toda minha vida, nunca me senti tão amada e cuidada como me sinto por ti, nunca quis tanto devolver a alguém a imensidão que ela entrega. Tu é mais que especial, quem te conhece sabe a luz que tu transmite, não consigo imaginar um mundo onde alguém não goste de ti, tu exala simpatia, risadas, maresia, alegria e no geral entrega tudo que exalas. Tu se tornou não apenas uma amiga, mas se tornou uma das pessoas mais importantes da minha vida, se tornou meu lar, meu aconchego, meu lugar seguro.</p>
 
-        <p>Zaza, não sei o porquê nossos mundos se cruzaram, não sei se por coincidência ou por destino, mas creio eu que te conheço de outras vidas, se é que isso realmente existe. Nossa conexão não foi imediata, mas foi concreta, teve esforço de ambos os lados, teve e tem muito cuidado.</p>
+          <p>Zaza, não sei o porquê nossos mundos se cruzaram, não sei se por coincidência ou por destino, mas creio eu que te conheço de outras vidas, se é que isso realmente existe. Nossa conexão não foi imediata, mas foi concreta, teve esforço de ambos os lados, teve e tem muito cuidado. Eu tento o tempo todo te mostrar o quanto quem te tem ao lado tem sorte, a sorte de ouvir tuas piadas, te ouvir cantarolando, te ver quietinha, te ver sendo mãe/filha/neta/irmã/tia/dinda, tudo de mais belo. E acima de tudo, eu desejo que o teu futuro seja enorme, gigante — que tudo o que há de mais lindo no universo eu desejo pra ti, porque tu merece o mundo inteiro e tudo de bom que existe nele. Até mesmo nos dias que tu acorda mal-humorada tu ainda fala comigo com um sorrisinho falso no rosto, e eu olho e sei que tu tá fazendo esforço pra não brigar comigo porque te acordei, ou nos dias que não calo a boca e tu está com dor de cabeça ou quer ficar quieta e acha que é cruel comigo, mas nem assim tu consegue fazer com que eu sinta alguma grosseria ou crueldade vindo de ti.</p>
 
-        <p>Amo cada tempo nosso, amo ir contigo para os lugares — praia, centro, shopping, ficar em casa, festas — amo tua companhia. Logo eu, que sempre amei meu tempo só, hoje esqueço o que é isso, pois estou do lado da melhor pessoa que eu poderia estar.</p>
+          <p>Amo cada tempo nosso, amo ir contigo para os lugares — praia, centro, shopping, ficar em casa, festas — amo tua companhia. Logo eu, que sempre amei meu tempo só, hoje esqueço o que é isso, pois estou do lado da melhor pessoa que eu poderia estar, a pessoa que não faz eu sentir nem por um segundo sequer alguma coisa que não seja amor e felicidade no meu peito. Amo passar as tardes deitada eu, você e o Tigrão, cozinhar contigo, amo ser tua amiga, amo que você se tornou parte de mim, o filho virou meu enteado e juntamente com minhas loucas meu tigre favorito do universo. Amo mimar vocês.</p>
 
-        <p>Isabelle, espero que esse textinho mostre que eu não consigo ver nada de ruim nesses meses que tua amizade entrou na minha vida. Espero que tu veja que tu nunca fez eu me sentir menos do que amada em voz alta e a pessoa mais feliz do universo.</p>
+          <p>Isabelle, espero que esse textinho mostre que eu não consigo ver nada de ruim nesses meses que tua amizade entrou na minha vida, nesses meses que eu me entreguei à tua pessoa. Espero que tu veja que tu nunca fez eu me sentir menos do que amada em voz alta e a pessoa mais feliz do universo. Obrigada por ter me apresentado a Coli, por me aproximar do Jean, por me apresentar o pessoal da faculdade, por me colocar no teu mundo mesmo que às vezes à distância. Obrigada por me acolher e me dar a chance de marcar tua história como tu está marcada na minha, da forma mais linda que eu já vi, toda enfeitada de formas que eu nem sei mostrar de tantos detalhes que são sobre você.</p>
 
-        <p>Obrigada por ser você, essa pessoa que faz cada segundo ser incrível, onde cada dia contigo é diferente. Contigo só existem as melhores coisas do universo, porque tu é isso: tu é incomparável.</p>
+          <p>Obrigada por ser você, essa pessoa que, das seis da manhã de um dia até as seis da manhã do outro, faz cada segundo ser incrível, onde cada dia contigo é diferente, onde não tem como odiar, cansar ou ficar triste perto. Contigo só existem as melhores coisas do universo, porque tu é isso: tu é incomparável. Não tem palavras no mundo pra te elogiar, pra falar de ti — não existem. É só sentir o que tu entrega, o que tu agrega. Tu muda e mudou tudo. Tu me salvou mesmo sem saber que eu precisava ser salva.</p>
 
-        <p>Eu te amo com a minha alma, eu te amo por completo e te amarei eternamente. O que tenho contigo nunca senti com ninguém: a confiança, a segurança... tudo isso é algo que nunca me aconteceu.</p>
-
-        <p>Tu me agarrou e me cuidou quando tudo desabou. Sempre que for preciso pro teu bem-estar e eu puder ajudar, eu irei. Jamais irei te abandonar.</p>
-
-        <p>Eu te amo em todos os multiversos, eu te amo com cada parte do meu ser, eu te amo mais que pudim, mais que todas as coisas verdes da natureza. Eu te amo com todo o meu ser.</p>
-      </div>
-      
-      <div class="assinatura">
-        <p>Com todo meu carinho,<br>
-        <strong>💚</strong></p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const adesivo = document.getElementById("adesivo");
-      const cartaFechada = document.getElementById("cartaFechada");
-      const cartaAberta = document.getElementById("cartaAberta");
-      
-      adesivo.addEventListener("click", () => {
-        // Esconde a carta fechada
-        cartaFechada.classList.add("esconder");
-        
-        // Mostra a carta aberta com animação
-        setTimeout(() => {
-          cartaAberta.classList.add("mostrar");
-        }, 300);
-      });
-    });
-  </script>
-</body>
-</html>
+          <p>Eu te amo com a minha alma, eu te amo por completo e te amarei eternamente. O que tenho contigo nunca senti com ninguém: a confiança, a segurança... tudo isso é algo que nunca me aconteceu. Eu abri as portas da minha vida e do meu coração, e tu cuidou e tu cuida. Esse textinho e essas fotos hoje não são nada além de 1% do que te digo e tento mostrar diariamente. É uma coisa bobin
